@@ -1,1 +1,0 @@
-const password = "MeinSQL$$88";
