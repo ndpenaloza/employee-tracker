@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS employee-data;
+DROP DATABASE IF EXISTS employeedb;
 
-CREATE DATABASE employee-data;
+CREATE DATABASE employeedb;
 
-USE employee-data;
+USE employeedb;
 
 CREATE TABLE department(
     id INT NOT NULL AUTO_INCREMENT,
@@ -14,7 +14,8 @@ CREATE TABLE role (
     id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(30),
     salary DECIMAL,
-    department_id INT
+    department_id INT,
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE employee (
@@ -25,3 +26,5 @@ CREATE TABLE employee (
     manager_id INT,
     PRIMARY KEY(id)
 );
+
+SELECT * FROM employee;

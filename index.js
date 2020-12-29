@@ -1,13 +1,13 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
-const password = require("password");
+var password = require("./password.js");
 
 const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: password,
-    database: "employee-data"
+    password: password.usePassword(),
+    database: "employeedb"
 });
 
 connection.connect((err) => {
