@@ -28,3 +28,5 @@ CREATE TABLE employee (
 );
 
 SELECT * FROM employee;
+
+SELECT * FROM department;

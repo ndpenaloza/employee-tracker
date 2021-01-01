@@ -1,5 +1,7 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+const cTable = require('console.table');
+
 var password = require("./password.js");
 
 const connection = mysql.createConnection({
@@ -21,7 +23,7 @@ employeeQuest = () => {
         name: "initialOptions",
         type: "list",
         message: "What would you like to do?",
-        choice: [
+        choices: [
             "View all employees",
             "View all departments",
             "View all roles",
@@ -38,7 +40,7 @@ employeeQuest = () => {
             "Cancel"
         ]
     }).then(response => {
-        switch (response.action) {
+        switch (response.initialOptions) {
             case "View all employees":
                 viewEmployees();
                 break;
@@ -64,7 +66,7 @@ employeeQuest = () => {
                 updateEmployeeRole();
                 break;
             case "Update employee manager":
-                updateEmployeesManager()
+                updateEmployeesManager();
                 break;
             case "Delete employee":
                 deleteEmployee();
