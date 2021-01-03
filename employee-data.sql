@@ -27,13 +27,4 @@ CREATE TABLE employee (
     PRIMARY KEY(id)
 );
 
-INSERT INTO department (name)
-VALUES ("PEDIATRICS");
-
-INSERT INTO employee (first_name,last_name, role_id, manager_id)
-VALUES ("Nick", "Penaloza", 8, 1);
-
-INSERT INTO role (title, salary, department_id)
-VALUES ("Research Assistant", 100000, 2);
-
 SELECT * FROM department;
