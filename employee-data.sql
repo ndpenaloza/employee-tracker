@@ -23,10 +23,17 @@ CREATE TABLE employee (
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
     role_id INT NOT NULL,
-    manager_id INT NOT NULL,
+    manager_id INT,
     PRIMARY KEY(id)
 );
 
-SELECT * FROM employee;
+INSERT INTO department (name)
+VALUES ("PEDIATRICS");
+
+INSERT INTO employee (first_name,last_name, role_id, manager_id)
+VALUES ("Nick", "Penaloza", 8, 1);
+
+INSERT INTO role (title, salary, department_id)
+VALUES ("Research Assistant", 100000, 2);
 
 SELECT * FROM department;

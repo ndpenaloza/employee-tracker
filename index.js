@@ -1,9 +1,11 @@
+// Dependencies 
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const cTable = require('console.table');
 
 var password = require("./password.js");
 
+// MySQL connection
 const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
@@ -14,7 +16,7 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
     if (err) throw err;
-    console.log("connected as id " + connection.threadId);
+    console.log("connected as id: " + connection.threadId);
     employeeQuest();
 });
 
@@ -118,7 +120,8 @@ viewEmployeesPerManager = () => {
     ]).then((response) => {
         connection.query("SELECT * FROM employee WHERE manager_id = ?", [response.managerID], (err, data) => {
             if (err) throw err;
-            console.table("All employees under selected manager are displayed");
+            console.table(data);
+            employeeQuest();
         });
         
     });
@@ -141,12 +144,12 @@ addEmployee = () => {
             message: "Enter employee's role ID#:"
         },
         {
-            name: "manageID",
+            name: "managerID",
             type: "number",
             message: "Enter employee's manager ID#"
         }
     ]).then((response) => {
-        connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [response.firstName, response.lastName, response.roleID, rsponse.managerID], (err, data) => {
+        connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [response.firstName, response.lastName, response.roleID, response.managerID], (err, data) => {
             if (err) throw err;
             console.table("Employee added");
             employeeQuest();
@@ -165,7 +168,7 @@ addDepartment = () => {
     ]).then((response) => {
         connection.query("INSERT INTO department (name) VALUES (?)", [response.department], (err, data) => {
             if (err) throw err;
-            console.table("Department added");
+            console.table("department added");
             employeeQuest();
         });
     });
@@ -210,7 +213,7 @@ updateEmployeeRole = () => {
             message: "Enter new role ID# to make change:"
         }
     ]).then((response) => {
-        connection.query("EDIT employee SET role_id = ? WHERE id = ?", [response.roleID, response.employeeID], (err, data) => {
+        connection.query("UPDATE employee SET role_id = ? WHERE id = ?", [response.roleID, response.employeeID], (err, data) => {
             if (err) throw err;
             console.table("Employee's role ID# has been updated");
             employeeQuest();
@@ -231,7 +234,7 @@ updateEmployeesManager = () => {
             message: "Enter new manager ID# to make change:"
         }
     ]).then((response) => {
-        connection.query("EDIT employee SET manager_id = ? WHERE id = ?", [response.managerID, response.employeeID], (err, data) => {
+        connection.query("UPDATE employee SET manager_id = ? WHERE id = ?", [response.managerID, response.employeeID], (err, data) => {
             if (err) throw err;
             console.table("Employee's manager ID# has been updated");
             employeeQuest();
