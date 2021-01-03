@@ -20,6 +20,7 @@ connection.connect((err) => {
     employeeQuest();
 });
 
+// Function asks user what would like to be done
 employeeQuest = () => {
     inquirer.prompt({
         name: "initialOptions",
@@ -89,6 +90,7 @@ employeeQuest = () => {
     })
 };
 
+// Function to view all employees
 viewEmployees = () => {
     connection.query("SELECT * FROM employee", (err, data) => {
         console.table(data);
@@ -96,6 +98,7 @@ viewEmployees = () => {
     });
 };
 
+//Function to view all departments
 viewDepartments = () => {
     connection.query("SELECT * FROM department", (err, data) => {
         console.table(data);
@@ -103,6 +106,7 @@ viewDepartments = () => {
     });
 };
 
+// Function views all roles
 viewRoles = () => {
     connection.query("SELECT * FROM role", (err, data) => {
         console.table(data);
@@ -110,6 +114,7 @@ viewRoles = () => {
     })
 }
 
+//Function views employees by manager
 viewEmployeesPerManager = () => {
     inquirer.prompt([
         {
@@ -127,6 +132,7 @@ viewEmployeesPerManager = () => {
     });
 }
 
+//Function adds new employee
 addEmployee = () => {
     inquirer.prompt([
         {
@@ -146,7 +152,7 @@ addEmployee = () => {
         {
             name: "managerID",
             type: "number",
-            message: "Enter employee's manager ID#"
+            message: "Enter employee's manager ID#:"
         }
     ]).then((response) => {
         connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [response.firstName, response.lastName, response.roleID, response.managerID], (err, data) => {
@@ -158,6 +164,7 @@ addEmployee = () => {
     })
 }
 
+// Function adds new department
 addDepartment = () => {
     inquirer.prompt([
         {
@@ -168,12 +175,13 @@ addDepartment = () => {
     ]).then((response) => {
         connection.query("INSERT INTO department (name) VALUES (?)", [response.department], (err, data) => {
             if (err) throw err;
-            console.table("department added");
+            console.table("Department added");
             employeeQuest();
         });
     });
 };
 
+// Function adds new role
 addRole = () => {
     inquirer.prompt([
         {
@@ -200,6 +208,7 @@ addRole = () => {
     });
 };
 
+// Function updates employee's role
 updateEmployeeRole = () => {
     inquirer.prompt([
         {
@@ -221,6 +230,7 @@ updateEmployeeRole = () => {
     })
 }
 
+// Function updates employee's manager
 updateEmployeesManager = () => {
     inquirer.prompt([
         {
@@ -242,12 +252,13 @@ updateEmployeesManager = () => {
     })
 }
 
+// Function deletes employee
 deleteEmployee = () => {
     inquirer.prompt([
         {
             name: "employeeID",
             input: "number",
-            message: "Enter employee ID to delete"
+            message: "Enter employee ID to delete:"
         } 
     ]).then((response) => {
         connection.query("DELETE FROM employee WHERE id = ?", [response.employeeID], (err, data) => {
@@ -258,12 +269,13 @@ deleteEmployee = () => {
     });
 };
 
+// Function deletes department
 deleteDepartment = () => {
     inquirer.prompt([
         {
             name: "departmentID",
             input: "number",
-            message: "Enter department ID to delete"
+            message: "Enter department ID to delete:"
         } 
     ]).then((response) => {
         connection.query("DELETE FROM department WHERE id = ?", [response.departmentID], (err, data) => {
@@ -275,12 +287,13 @@ deleteDepartment = () => {
 
 }
 
+// Function deletes role
 deleteRole = () => {
     inquirer.prompt([
         {
             name: "roleID",
             input: "number",
-            message: "Enter role ID to delete"
+            message: "Enter role ID to delete:"
         } 
     ]).then((response) => {
         connection.query("DELETE FROM role WHERE id = ?", [response.roleID], (err, data) => {
@@ -291,6 +304,7 @@ deleteRole = () => {
     });
 }
 
+// Function views total salary per department
 viewDepartmentBudget = () => {
     inquirer.prompt([
         {
