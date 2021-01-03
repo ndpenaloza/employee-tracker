@@ -39,7 +39,6 @@ employeeQuest = () => {
             "Delete employee",
             "Delete department",
             "Delete role",
-            "View total utilized budget of a department",
             "Cancel"
         ]
     }).then(response => {
@@ -80,9 +79,6 @@ employeeQuest = () => {
             case "Delete role":
                 deleteRole();
                 break;
-            case "View total utilized budget of a department":
-                viewDepartmentBudget();
-                break;
             default:
                 connection.end();
                 break;
@@ -94,6 +90,7 @@ employeeQuest = () => {
 viewEmployees = () => {
     connection.query("SELECT * FROM employee", (err, data) => {
         console.table(data);
+        console.log("===================================");
         employeeQuest();
     });
 };
@@ -102,6 +99,7 @@ viewEmployees = () => {
 viewDepartments = () => {
     connection.query("SELECT * FROM department", (err, data) => {
         console.table(data);
+        console.log("===================================");
         employeeQuest();
     });
 };
@@ -110,6 +108,7 @@ viewDepartments = () => {
 viewRoles = () => {
     connection.query("SELECT * FROM role", (err, data) => {
         console.table(data);
+        console.log("===================================");
         employeeQuest();
     })
 }
@@ -126,6 +125,7 @@ viewEmployeesPerManager = () => {
         connection.query("SELECT * FROM employee WHERE manager_id = ?", [response.managerID], (err, data) => {
             if (err) throw err;
             console.table(data);
+            console.log("===================================");
             employeeQuest();
         });
         
@@ -157,7 +157,8 @@ addEmployee = () => {
     ]).then((response) => {
         connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [response.firstName, response.lastName, response.roleID, response.managerID], (err, data) => {
             if (err) throw err;
-            console.table("Employee added");
+            console.table("Employee added!!!");
+            console.log("===================================");
             employeeQuest();
         })
 
@@ -175,7 +176,8 @@ addDepartment = () => {
     ]).then((response) => {
         connection.query("INSERT INTO department (name) VALUES (?)", [response.department], (err, data) => {
             if (err) throw err;
-            console.table("Department added");
+            console.table("Department added!!!");
+            console.log("===================================");
             employeeQuest();
         });
     });
@@ -202,7 +204,8 @@ addRole = () => {
     ]).then((response) => {
         connection.query("INSERT INTO role (title, salary, department_id) VALUES (?,?,?)", [response.title, response.salary, response.departmentID], (err, data) => {
             if (err) throw err;
-            console.table("Role added");
+            console.table("Role added!!!");
+            console.log("===================================");
             employeeQuest();
         });
     });
@@ -224,7 +227,8 @@ updateEmployeeRole = () => {
     ]).then((response) => {
         connection.query("UPDATE employee SET role_id = ? WHERE id = ?", [response.roleID, response.employeeID], (err, data) => {
             if (err) throw err;
-            console.table("Employee's role ID# has been updated");
+            console.log("Employee's role ID# has been updated!!!");
+            console.log("==================================");
             employeeQuest();
         })
     })
@@ -246,10 +250,12 @@ updateEmployeesManager = () => {
     ]).then((response) => {
         connection.query("UPDATE employee SET manager_id = ? WHERE id = ?", [response.managerID, response.employeeID], (err, data) => {
             if (err) throw err;
-            console.table("Employee's manager ID# has been updated");
+            console.log("Employee's manager ID# has been updated!!!");
+            console.log("===================================");
             employeeQuest();
         })
     })
+
 }
 
 // Function deletes employee
@@ -264,6 +270,7 @@ deleteEmployee = () => {
         connection.query("DELETE FROM employee WHERE id = ?", [response.employeeID], (err, data) => {
             if (err) throw err;
             console.table("Employee has been deleted");
+            console.log("===================================");
             employeeQuest();
         })
     });
@@ -281,6 +288,7 @@ deleteDepartment = () => {
         connection.query("DELETE FROM department WHERE id = ?", [response.departmentID], (err, data) => {
             if (err) throw err;
             console.table("Department has been deleted");
+            console.log("===================================");
             employeeQuest();
         })
     });
@@ -298,25 +306,9 @@ deleteRole = () => {
     ]).then((response) => {
         connection.query("DELETE FROM role WHERE id = ?", [response.roleID], (err, data) => {
             if (err) throw err;
-            console.table("Role has been deleted");
+            console.table("Role has been deleted!!!");
+            console.log("===================================");
             employeeQuest();
         })
     });
 }
-
-// Function views total salary per department
-viewDepartmentBudget = () => {
-    inquirer.prompt([
-        {
-            name: "departmentID",
-            input: "number",
-            message: "Enter department ID to view total utilized budget"
-        } 
-    ]).then((response) => {
-        connection.query("SELECT SUM () FROM department WHERE id = ?", [response.employeeID], (err, data) => {
-            if (err) throw err;
-            console.table("Employee has been deleted");
-            employeeQuest();
-        })
-    });
-};

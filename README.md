@@ -5,18 +5,18 @@
 ## Table of Contents
   1.  [Description](#Description)
   2.  [Installation](#Installation)
-  3.  [Usage](#Usage)
-  4.  [License](#License)
-  5.  [Questions](#Questions)
+  3.  [License](#License)
+  4.  [Questions](#Questions)
 
 ## Description: 
 This project utilizes node, inquirer, and MySQL to create a CLI application to manage employee information.
 
 ## Installation:
-stuff
-
-## Usage:
-stuff
+Node.JS and MySQL must be installed. After cloning repository enter:
+```
+npm i
+npm start
+```
 
 ## License:
 
