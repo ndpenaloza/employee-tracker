@@ -11,6 +11,8 @@
 ## Description: 
 This project utilizes node, inquirer, and MySQL to create a CLI application to manage employee information.
 
+![Screenshot of app](/assets/img/employee-tracker.png)
+
 ## Installation:
 Node.JS and MySQL must be installed. After cloning repository enter:
 ```
